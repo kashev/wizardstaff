@@ -26,8 +26,25 @@ int checkfull(String args)
 {
   if(!val && flag)//if cup is empty, reset flag
   {
-      flag = 0;
-      return 0;
+      unsigned long now = millis();
+      if(lastTime > 0) //not the first time we reach this state
+      {
+          if((now - lastTime) > 2000UL) //cup has been empty for 2 seconds 
+          {
+            flag = 0; //reset flag, tell phone that drink is finished.
+            lastTime = 0;
+            return 0;
+          }
+          else //cup has not been empty for at least 2 seconds
+          {
+            return 1;
+          }
+      }
+      else //first time we reach this state
+      {
+          lastTime = millis();
+          return 1;
+      }
   }
   else if (!val && !flag)//if cup is empty and flag has already been reset
   {
@@ -35,6 +52,7 @@ int checkfull(String args)
   }
   else // cup is full and user has been asked to take a drink
   {
+    lastTime = 0;
     return 1;
   }
     
@@ -49,7 +67,7 @@ int takedrink(String args)
       return -1;
   }   
   flag = 1;
-  lastTime = millis();
+  
   return 1;
 
 }
