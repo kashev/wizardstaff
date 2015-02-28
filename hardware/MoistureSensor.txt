@@ -4,8 +4,8 @@ SET TO HIGH             SET TO PULLDOWN/HIGH_Z
 
 --------		--------
 	|		|
-	|     WATER	|
-	|     WATER	|
-	|     WATER	|
+	|     BEER	|
+	|     BEER	|
+	|     BEER	|
 	|		|
 --------		--------
