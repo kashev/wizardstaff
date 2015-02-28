@@ -69,7 +69,7 @@ public class ScoreboardActivity extends ActionBarActivity implements
 
         YAxis leftAxis = mChart.getAxisLeft();
 //        leftAxis.setTypeface(mTf);
-        leftAxis.setLabelCount(8);
+//        leftAxis.setLabelCount(8);
         leftAxis.setValueFormatter(intFormat);
 
         YAxis rightAxis = mChart.getAxisRight();
@@ -77,7 +77,8 @@ public class ScoreboardActivity extends ActionBarActivity implements
 
         setData();
 
-//        Legend l = mChart.getLegend();
+        Legend l = mChart.getLegend();
+        l.setEnabled(false);
 //        l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
 //        l.setForm(Legend.LegendForm.SQUARE);
 //        l.setFormSize(9f);
@@ -118,10 +119,13 @@ public class ScoreboardActivity extends ActionBarActivity implements
 
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
 
+        int maxVal = 0;
         for (int i = 0; i < count; i++) {
-//            float val = (float) (Math.random() * 10f);
             int val = (int) (Math.random() * 10f);
             yVals.add(new BarEntry(val, i));
+            if (val > maxVal) {
+                maxVal = val;
+            }
         }
 
         BarDataSet set = new BarDataSet(yVals, "Number of Drinks");
@@ -132,9 +136,10 @@ public class ScoreboardActivity extends ActionBarActivity implements
 
         BarData data = new BarData(xVals, dataSets);
         data.setValueTextSize(10f);
-//        data.setValueFormatter(intFormat);
         data.setDrawValues(false);
+        data.setValueFormatter(intFormat);
 
+        mChart.getAxisLeft().setLabelCount(maxVal);
         mChart.setData(data);
     }
 
@@ -156,19 +161,20 @@ public class ScoreboardActivity extends ActionBarActivity implements
 
     /******** GESTURE CALLBACKS *********/
     public void onChartLongPressed(MotionEvent me) {
-        // STUB
+        // DO NOTHING
     }
 
+    /* Send DRINK command to Spark Core */
     public void onChartDoubleTapped(MotionEvent me) {
         // STUB
     }
 
     public void onChartSingleTapped(MotionEvent me) {
-        // STUB
+        // DO NOTHING
     }
 
     public void onChartFling(MotionEvent me1, MotionEvent me2,
                              float velocityX, float velocityY) {
-        // STUB
+        // DO NOTHING
     }
 }
