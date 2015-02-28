@@ -28,4 +28,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.github.PhilJay:MPAndroidChart:v2.0.2'
     compile 'com.mcxiaoke.volley:library:1.0.10'
+    compile 'com.google.android.gms:play-services:6.5.87'
+    compile project(path: ':backend', configuration: 'android-endpoints')
 }
