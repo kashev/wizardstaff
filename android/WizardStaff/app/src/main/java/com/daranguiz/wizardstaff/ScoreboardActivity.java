@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -17,6 +18,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Highlight;
 import com.github.mikephil.charting.utils.ValueFormatter;
@@ -25,10 +27,11 @@ import java.util.ArrayList;
 
 
 public class ScoreboardActivity extends ActionBarActivity implements
-        OnChartValueSelectedListener {
+        OnChartValueSelectedListener, OnChartGestureListener {
 
     protected BarChart mChart;
     private Typeface mTf;
+    ValueFormatter intFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class ScoreboardActivity extends ActionBarActivity implements
 
         mChart = (BarChart) findViewById(R.id.chart1);
         mChart.setOnChartValueSelectedListener(this);
+        mChart.setOnChartGestureListener(this);
 
         mChart.setDrawValueAboveBar(true);
         mChart.setDescription("");
@@ -61,18 +65,15 @@ public class ScoreboardActivity extends ActionBarActivity implements
 //        xAxis.setTypeface(mTf);
         xAxis.setDrawGridLines(false);
 
-        ValueFormatter custom = new MyValueFormatter();
+        intFormat = new MyValueFormatter();
 
         YAxis leftAxis = mChart.getAxisLeft();
 //        leftAxis.setTypeface(mTf);
         leftAxis.setLabelCount(8);
-        leftAxis.setValueFormatter(custom);
+        leftAxis.setValueFormatter(intFormat);
 
         YAxis rightAxis = mChart.getAxisRight();
-        rightAxis.setDrawGridLines(false);
-//        rightAxis.setTypeface(mTf);
-        rightAxis.setLabelCount(8);
-        rightAxis.setValueFormatter(custom);
+        rightAxis.setEnabled(false);
 
         setData();
 
@@ -118,11 +119,12 @@ public class ScoreboardActivity extends ActionBarActivity implements
         ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
 
         for (int i = 0; i < count; i++) {
-            float val = (float) (Math.random() * 10f);
+//            float val = (float) (Math.random() * 10f);
+            int val = (int) (Math.random() * 10f);
             yVals.add(new BarEntry(val, i));
         }
 
-        BarDataSet set = new BarDataSet(yVals, "DataSet");
+        BarDataSet set = new BarDataSet(yVals, "Number of Drinks");
         set.setBarSpacePercent(35f);
 
         ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
@@ -130,6 +132,8 @@ public class ScoreboardActivity extends ActionBarActivity implements
 
         BarData data = new BarData(xVals, dataSets);
         data.setValueTextSize(10f);
+//        data.setValueFormatter(intFormat);
+        data.setDrawValues(false);
 
         mChart.setData(data);
     }
@@ -147,6 +151,24 @@ public class ScoreboardActivity extends ActionBarActivity implements
     }
 
     public void onNothingSelected() {
+        // STUB
+    }
+
+    /******** GESTURE CALLBACKS *********/
+    public void onChartLongPressed(MotionEvent me) {
+        // STUB
+    }
+
+    public void onChartDoubleTapped(MotionEvent me) {
+        // STUB
+    }
+
+    public void onChartSingleTapped(MotionEvent me) {
+        // STUB
+    }
+
+    public void onChartFling(MotionEvent me1, MotionEvent me2,
+                             float velocityX, float velocityY) {
         // STUB
     }
 }
