@@ -13,11 +13,15 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Highlight;
 import com.github.mikephil.charting.utils.ValueFormatter;
+
+import java.util.ArrayList;
 
 
 public class ScoreboardActivity extends ActionBarActivity implements
@@ -35,7 +39,11 @@ public class ScoreboardActivity extends ActionBarActivity implements
         mChart.setOnChartValueSelectedListener(this);
 
         mChart.setDrawValueAboveBar(true);
-        mChart.setDescription("WizardStaffBoyzz");
+        mChart.setDescription("");
+
+        // Dario flag changes
+        mChart.setDragEnabled(false);
+        mChart.setScaleEnabled(false);
 
         // Set max on the chart to 10 for now, should never go above 3 on demo
         mChart.setMaxVisibleValueCount(10);
@@ -66,6 +74,8 @@ public class ScoreboardActivity extends ActionBarActivity implements
         rightAxis.setLabelCount(8);
         rightAxis.setValueFormatter(custom);
 
+        setData();
+
 //        Legend l = mChart.getLegend();
 //        l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
 //        l.setForm(Legend.LegendForm.SQUARE);
@@ -95,6 +105,33 @@ public class ScoreboardActivity extends ActionBarActivity implements
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setData() {
+        ArrayList<String> xVals = new ArrayList<String>();
+        xVals.add("Dario");
+        xVals.add("Kashev");
+        xVals.add("Ahmed");
+        xVals.add("Brady");
+        int count = 4;
+
+        ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
+
+        for (int i = 0; i < count; i++) {
+            float val = (float) (Math.random() * 10f);
+            yVals.add(new BarEntry(val, i));
+        }
+
+        BarDataSet set = new BarDataSet(yVals, "DataSet");
+        set.setBarSpacePercent(35f);
+
+        ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
+        dataSets.add(set);
+
+        BarData data = new BarData(xVals, dataSets);
+        data.setValueTextSize(10f);
+
+        mChart.setData(data);
     }
 
     @Override
