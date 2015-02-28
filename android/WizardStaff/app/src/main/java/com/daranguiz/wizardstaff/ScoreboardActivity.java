@@ -1,9 +1,5 @@
 package com.daranguiz.wizardstaff;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.Typeface;
@@ -13,7 +9,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -34,14 +29,9 @@ import java.util.ArrayList;
 public class ScoreboardActivity extends ActionBarActivity implements
         OnChartValueSelectedListener, OnChartGestureListener {
 
-    // Chart vars
     protected BarChart mChart;
     private Typeface mTf;
     ValueFormatter intFormat;
-
-    // Alarm vars
-    private AlarmManager alarmMgr;
-    private PendingIntent alarmIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +58,18 @@ public class ScoreboardActivity extends ActionBarActivity implements
         // Disable background
         mChart.setDrawGridBackground(false);
 
+//        mTf = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
+
         XAxis xAxis = mChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//        xAxis.setTypeface(mTf);
         xAxis.setDrawGridLines(false);
 
         intFormat = new MyValueFormatter();
 
         YAxis leftAxis = mChart.getAxisLeft();
+//        leftAxis.setTypeface(mTf);
+//        leftAxis.setLabelCount(8);
         leftAxis.setValueFormatter(intFormat);
 
         YAxis rightAxis = mChart.getAxisRight();
@@ -84,18 +79,11 @@ public class ScoreboardActivity extends ActionBarActivity implements
 
         Legend l = mChart.getLegend();
         l.setEnabled(false);
-
-        /*** Begin Repeating Alarm Setup ***/
-        int pollFrequencySeconds = 10;
-        Context context = getApplicationContext();
-        alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AlarmReceiver.class);
-        alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-        alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                                     1000 * pollFrequencySeconds,
-                                     1000 * pollFrequencySeconds,
-                                     alarmIntent);
-        Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
+//        l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+//        l.setForm(Legend.LegendForm.SQUARE);
+//        l.setFormSize(9f);
+//        l.setTextSize(11f);
+//        l.setXEntrySpace(4f);
     }
 
 
