@@ -17,10 +17,10 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PollSparkService extends IntentService {
+public class PollGameStatusService extends IntentService {
     String TAG = "PollSparkService";
 
-    public PollSparkService() {
+    public PollGameStatusService() {
         super("PollSparkService");
     }
 
