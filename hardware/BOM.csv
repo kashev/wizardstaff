@@ -1,0 +1,4 @@
+Part, Quantity, Use
+Spark Microcontroller, 1, Rx/Tx to Android app and check drink status
+LED (Single Color), 3, Ambient lighting
+Piezo Buzzer, 1, Boss level notification

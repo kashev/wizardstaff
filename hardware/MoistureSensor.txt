@@ -1,0 +1,11 @@
+SPARK OUTPUT            SPARK INPUT NODE
+SET TO HIGH             SET TO PULLDOWN/HIGH_Z
+(3.3V)               
+
+--------		--------
+	|		|
+	|     BEER	|
+	|     BEER	|
+	|     BEER	|
+	|		|
+--------		--------
