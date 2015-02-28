@@ -3,6 +3,7 @@ int pwout = D0;  // You'll need to wire an LED to this one to see it blink.
 int led2 = D1; // This one is the built-in tiny one to the right of the USB jack
 int led = D3;
 int buzzer = D4;
+int state = -1;
 
 //variables
 int val = 0;
@@ -10,6 +11,7 @@ int flag = 0;
 
 //send you time
 unsigned long lastTime = 0UL;
+unsigned long lastCheck = 0UL;
 char publishString[64];
 // This routine runs only once upon reset
 void setup() {
@@ -26,13 +28,13 @@ int checkfull(String args)
 {
   if(!val && flag)//if cup is empty, reset flag
   {
-      unsigned long now = millis();
-      if(lastTime > 0) //not the first time we reach this state
+/*      unsigned long now = millis();
+      if(lastCheck > 0) //not the first time we reach this state
       {
-          if((now - lastTime) > 2000UL) //cup has been empty for 2 seconds 
+          if((now - lastCheck) > 2000UL) //cup has been empty for 2 seconds 
           {
             flag = 0; //reset flag, tell phone that drink is finished.
-            lastTime = 0;
+            lastCheck = 0;
             return 0;
           }
           else //cup has not been empty for at least 2 seconds
@@ -42,9 +44,10 @@ int checkfull(String args)
       }
       else //first time we reach this state
       {
-          lastTime = millis();
+          lastCheck = millis();
           return 1;
-      }
+      }*/
+      return state;
   }
   else if (!val && !flag)//if cup is empty and flag has already been reset
   {
@@ -52,7 +55,6 @@ int checkfull(String args)
   }
   else // cup is full and user has been asked to take a drink
   {
-    lastTime = 0;
     return 1;
   }
     
@@ -67,12 +69,13 @@ int takedrink(String args)
       return -1;
   }   
   flag = 1;
+  state = 1;
   
   return 1;
 
 }
 
-void sendEvent()
+/*void sendEvent()
 {
     unsigned long now = millis();
     now = lastTime - now; //how long it took for the user to take the drink
@@ -81,7 +84,7 @@ void sendEvent()
     unsigned min = (nowSec%3600)/60;
     sprintf(publishString,"{\"Minutes\": %u, \"Seconds\": %u}",min,sec);
     Spark.publish("Empty",publishString);
-}
+}*/
 
 
 // This routine gets called repeatedly, like once every 5-15 milliseconds.
@@ -94,17 +97,43 @@ void loop() {
   
   if(val && flag) //if the user has to take a drink and the cup is full, turn buzzer and led on
   {
+      lastTime = 0;
       digitalWrite(led, HIGH); //led is on.
-      digitalWrite(buzzer, HIGH); //led is on.
+      digitalWrite(buzzer, HIGH); //buzzer is on.
   }
   else if (!val && flag) //if user has to take a drink but the cup is empty, output is off.
   {
-      digitalWrite(led, LOW);
-      digitalWrite(buzzer, LOW);
+      unsigned long now = millis();
+      if(lastTime > 0) //not the first time we reach this state
+      {
+          if((now - lastTime) > 2000UL) //cup has been empty for 2 seconds 
+          {
+            flag = 0; //reset flag, tell phone that drink is finished.
+            lastTime = 0;
+            state = 0;
+            digitalWrite(led, LOW);
+            digitalWrite(buzzer, LOW);
+          }
+          else //cup has not been empty for at least 2 seconds
+          {
+            state = 1;
+            digitalWrite(led, HIGH); //led is on.
+            digitalWrite(buzzer, HIGH); //buzzer is on.
+          }
+      }
+      else //first time we reach this state
+      {
+        lastTime = millis();
+        state = 1;
+        digitalWrite(led, HIGH); //led is on.
+        digitalWrite(buzzer, HIGH); //buzzer is on.
+      }
+
       
   }
   else //if user does not have to take a drink and the cup is empty, output is off
   {
+    lastTime = 0;
     digitalWrite(led, LOW);
     digitalWrite(buzzer, LOW);
   }
