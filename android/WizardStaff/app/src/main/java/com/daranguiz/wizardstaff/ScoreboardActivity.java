@@ -84,6 +84,8 @@ public class ScoreboardActivity extends ActionBarActivity implements
 //        l.setFormSize(9f);
 //        l.setTextSize(11f);
 //        l.setXEntrySpace(4f);
+
+        new GcmRegistrationAsyncTask(this).execute();
     }
 
 
