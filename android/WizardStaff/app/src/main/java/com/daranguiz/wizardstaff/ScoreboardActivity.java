@@ -168,6 +168,10 @@ public class ScoreboardActivity extends ActionBarActivity implements
     @Override
     protected void onStop() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        // If the alarm has been set, cancel it.
+        if (alarmMgr!= null) {
+            alarmMgr.cancel(alarmIntent);
+        }
         super.onStop();
     }
 
@@ -279,7 +283,7 @@ public class ScoreboardActivity extends ActionBarActivity implements
 
         BarData data = new BarData(ownersList, dataSets);
         data.setValueTextSize(10f);
-        data.setDrawValues(false);
+        data.setDrawValues(true);
         data.setValueFormatter(intFormat);
 
         mChart.getAxisLeft().setLabelCount(maxVal);
