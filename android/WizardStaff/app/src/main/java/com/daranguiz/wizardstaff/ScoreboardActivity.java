@@ -2,11 +2,14 @@ package com.daranguiz.wizardstaff;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,11 +31,17 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Highlight;
 import com.github.mikephil.charting.utils.ValueFormatter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class ScoreboardActivity extends ActionBarActivity implements
         OnChartValueSelectedListener, OnChartGestureListener {
+
+    static final private String TAG = "ScoreboardActivity";
 
     // Chart vars
     protected BarChart mChart;
@@ -42,6 +51,9 @@ public class ScoreboardActivity extends ActionBarActivity implements
     // Alarm vars
     private AlarmManager alarmMgr;
     private PendingIntent alarmIntent;
+
+    // Service interaction
+    public BroadcastReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +98,7 @@ public class ScoreboardActivity extends ActionBarActivity implements
         l.setEnabled(false);
 
         /*** Begin Repeating Alarm Setup ***/
-        int pollFrequencySeconds = 10;
+        int pollFrequencySeconds = 5;
         Context context = getApplicationContext();
         alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
@@ -96,8 +108,27 @@ public class ScoreboardActivity extends ActionBarActivity implements
                 1000 * pollFrequencySeconds,
                 alarmIntent);
         Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
+
+        /*** Begin UI Update Listener ***/
+        receiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                setDataFromJSON(intent.getStringExtra(PollGameStatusService.SCORE_KEY));
+            }
+        };
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter(PollGameStatusService.DRINK_RESULT));
+    }
+
+    @Override
+    protected void onStop() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
+        super.onStop();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -147,6 +178,64 @@ public class ScoreboardActivity extends ActionBarActivity implements
         dataSets.add(set);
 
         BarData data = new BarData(xVals, dataSets);
+        data.setValueTextSize(10f);
+        data.setDrawValues(false);
+        data.setValueFormatter(intFormat);
+
+        mChart.getAxisLeft().setLabelCount(maxVal);
+        mChart.setData(data);
+    }
+
+    private void setDataFromJSON(String stringJSON) {
+        JSONObject fromDbJSON;
+        try {
+            fromDbJSON = new JSONObject(stringJSON);
+        } catch(JSONException e) {
+            Log.d(TAG, "Could not form JSONObject from string from service");
+            return;
+        }
+
+        Iterator<String> it = fromDbJSON.keys();
+        ArrayList<String> ownersList = new ArrayList<String>();
+        ArrayList<Integer> numDrinksList = new ArrayList<Integer>();
+        while (it.hasNext()) {
+            String owner = it.next();
+            int numDrinks = 0;
+            try {
+                numDrinks = fromDbJSON.getInt(owner);
+            } catch(JSONException e) {
+                Log.d(TAG, "Could not get numDrinks");
+                continue;
+            }
+
+            ownersList.add(owner);
+            numDrinksList.add(numDrinks);
+        }
+
+        int numOwners = ownersList.size();
+        Log.d(TAG, Integer.toString(numOwners));
+        if (numOwners == 0) {
+            return;
+        }
+
+        // Begin populating bar graph
+        ArrayList<BarEntry> yVals = new ArrayList<BarEntry>();
+        int maxVal = 0;
+        for (int i = 0; i < numOwners; i++) {
+            int curNumDrinks = numDrinksList.get(i);
+            yVals.add(new BarEntry(curNumDrinks, i));
+            if (curNumDrinks > maxVal) {
+                maxVal = curNumDrinks;
+            }
+        }
+
+        BarDataSet set = new BarDataSet(yVals, "Number of Drinks");
+        set.setBarSpacePercent(35f);
+
+        ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
+        dataSets.add(set);
+
+        BarData data = new BarData(ownersList, dataSets);
         data.setValueTextSize(10f);
         data.setDrawValues(false);
         data.setValueFormatter(intFormat);
