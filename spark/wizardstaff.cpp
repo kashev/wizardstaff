@@ -15,6 +15,7 @@ int led5 = D7;
 //variables
 int val = 0;
 int flag = 0;
+int flag2 = 0;
 
 //send you time
 unsigned long lastTime = 0UL;
@@ -46,14 +47,26 @@ int checkfull(String args)
           lastCheck = millis();
           return 1;
       }*/
+      flag2 = 0;
       return state;
   }
   else if (!val && !flag)//if cup is empty and flag has already been reset
   {
-      return 2;
+      if (flag2 == 0)
+     {   
+         flag2 = 1;
+         return 0;
+     }
+     else
+     {
+         
+          return 2;
+     }
+       
   }
   else // cup is full and user has been asked to take a drink
   {
+     flag2 = 0;
     return 1;
   }
     
@@ -67,6 +80,7 @@ int takedrink(String args)
   {
       return -1;
   }   
+  flag2 = 0;
   flag = 1;
   state = 1;
   
