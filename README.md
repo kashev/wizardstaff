@@ -8,6 +8,8 @@
     Brady Salz     :: brady.salz@gmail.com
     Ahmed Suhyl    :: sulaimn2@illinois.edu
 
+![Wizard Staff Logo](https://raw.githubusercontent.com/kashev/wizardstaff/master/website/src/img/wizard.png)
+
 ## About
 
 [Wizard Staff](http://en.wikipedia.org/wiki/Wizard_Staff) is a popular drinking game in which one tapes consecutive new cans of liquid on top of their empties, and thereby creates a "Wizard's Staff". If one's staff is longer than another player, then that higher level wizard may instruct the lower level wizard to hydrate himself.
