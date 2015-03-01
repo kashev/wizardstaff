@@ -1,0 +1,42 @@
+/*
+ * wizard staff
+ */
+
+/* FONTS */
+/* Lato */
+@import url("http://fonts.googleapis.com/css?family=Lato:300,400,700");
+/* Inconsolata */
+@import url("http://fonts.googleapis.com/css?family=Inconsolata");
+
+
+/*
+ * MIXINS
+ */
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+       -o-border-radius: $radius;
+          border-radius: $radius;
+}
+
+
+/*
+ * VARIABLES
+ */
+
+$lato-stack    : "Lato", Helvetica, sans-serif;
+$console-stack : "Inconsolata", monospace;
+
+$background : #FFF;
+$text       : #111;
+
+/*
+ * SELECTION
+ *  Because this is how you show you care.
+ */
+$selection-color      : $background;
+$selection-background : $text;
+::selection      { color : $selection-color; background : $selection-background;}
+::-moz-selection { color : $selection-color; background : $selection-background;}

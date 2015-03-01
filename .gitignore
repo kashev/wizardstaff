@@ -3,6 +3,17 @@
 wearable/vagrant2015*
 wearable/d2015*
 
+# .gitignore
+
+website/.sass-cache/*
+website/dist/*
+website/node_modules/*
+
+website/src/css/bourbon/*
+website/src/css/neat/*
+
+**/Thumbs.db
+
 ### END USER DEFINED ###
 
 # Created by https://www.gitignore.io
