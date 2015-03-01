@@ -18,6 +18,17 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.MutableData;
+import com.firebase.client.Transaction;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -35,7 +46,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 
 public class ScoreboardActivity extends ActionBarActivity implements
@@ -269,7 +282,7 @@ public class ScoreboardActivity extends ActionBarActivity implements
 
     /* Send DRINK command to Spark Core */
     public void onChartDoubleTapped(MotionEvent me) {
-        // STUB
+        sendTakeDrinkRequest();
     }
 
     public void onChartSingleTapped(MotionEvent me) {
@@ -279,5 +292,43 @@ public class ScoreboardActivity extends ActionBarActivity implements
     public void onChartFling(MotionEvent me1, MotionEvent me2,
                              float velocityX, float velocityY) {
         // DO NOTHING
+    }
+
+    /******* HELPER *******/
+    private void sendTakeDrinkRequest() {
+        // Instantiate the RequestQueue
+        // http://stackoverflow.com/questions/16626032/volley-post-get-parameters
+        String sparkURL = "https://api.spark.io/v1/devices/53ff70065075535143191087/";
+        final String sparkToken = "dee3d4daa012763c0bfd854647224b5e0883996f";
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest sparkReq = new StringRequest(Request.Method.POST,
+                sparkURL + "takedrink",
+                createMyReqSuccessListener(),
+                createMyReqErrorListener()) {
+            protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("access_token", sparkToken);
+                return params;
+            }
+        };
+        queue.add(sparkReq);
+    }
+
+    private Response.Listener<String> createMyReqSuccessListener() {
+        return new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                // Do nothing, we expect no return from takedrink
+            }
+        };
+    }
+
+    private Response.ErrorListener createMyReqErrorListener() {
+        return new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "HTTP POST Error");
+            }
+        };
     }
 }
