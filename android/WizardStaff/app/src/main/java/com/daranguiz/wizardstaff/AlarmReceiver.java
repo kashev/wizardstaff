@@ -16,6 +16,8 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         // Start service to poll spark
 //        Log.d(TAG, "Starting PollSparkService");
         Intent service = new Intent(context, PollGameStatusService.class);
+        service.putExtra("myGlass", intent.getStringExtra("myGlass"));
+        service.putExtra("myAddr", intent.getStringExtra("myAddr"));
         startWakefulService(context, service);
     }
 }
