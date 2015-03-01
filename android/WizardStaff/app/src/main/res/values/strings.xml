@@ -3,4 +3,12 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_login">WizardStaff</string>
+
+    <string-array name="glass_array">
+        <item>BlackMage</item>
+        <item>WhiteMage</item>
+        <item>GreenMage</item>
+    </string-array>
+
 </resources>

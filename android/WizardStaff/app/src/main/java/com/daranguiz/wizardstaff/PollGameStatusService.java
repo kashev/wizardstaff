@@ -43,7 +43,7 @@ public class PollGameStatusService extends IntentService {
         /* Using Volley, seems to be a good way to handle HTTP GET requests
          * https://developer.android.com/training/volley/simple.html */
 
-        Log.d(TAG, "PollSparkService Started");
+//        Log.d(TAG, "PollSparkService Started");
 
         broadcaster = LocalBroadcastManager.getInstance(this);
 

@@ -55,6 +55,8 @@ public class ScoreboardActivity extends ActionBarActivity implements
         OnChartValueSelectedListener, OnChartGestureListener {
 
     static final private String TAG = "ScoreboardActivity";
+    public String myName;
+    public String myGlass;
 
     // Chart vars
     protected BarChart mChart;
@@ -72,6 +74,8 @@ public class ScoreboardActivity extends ActionBarActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
+
+        dbInit(getIntent());
 
         mChart = (BarChart) findViewById(R.id.chart1);
         mChart.setOnChartValueSelectedListener(this);
@@ -129,6 +133,19 @@ public class ScoreboardActivity extends ActionBarActivity implements
                 setDataFromJSON(intent.getStringExtra(PollGameStatusService.SCORE_KEY));
             }
         };
+    }
+
+    private void dbInit(Intent intent) {
+        myName = intent.getStringExtra("name");
+        myGlass = intent.getStringExtra("glass");
+
+        Firebase.setAndroidContext(this.getApplicationContext());
+        Firebase myDrinkDb = new Firebase("https://wizardstaff.firebaseio.com/Sparks");
+        Firebase curGlass = myDrinkDb.child(myGlass);
+        Log.d(TAG, myName + myGlass);
+        curGlass.child("Owner").setValue(myName);
+        curGlass.child("Owned").setValue(1);
+        curGlass.child("NumDrinks").setValue(0);
     }
 
     @Override
@@ -227,7 +244,7 @@ public class ScoreboardActivity extends ActionBarActivity implements
         }
 
         int numOwners = ownersList.size();
-        Log.d(TAG, Integer.toString(numOwners));
+//        Log.d(TAG, Integer.toString(numOwners));
         if (numOwners == 0) {
             return;
         }

@@ -14,7 +14,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         // Start service to poll spark
-        Log.d(TAG, "Starting PollSparkService");
+//        Log.d(TAG, "Starting PollSparkService");
         Intent service = new Intent(context, PollGameStatusService.class);
         startWakefulService(context, service);
     }
