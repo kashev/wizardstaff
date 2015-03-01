@@ -64,6 +64,7 @@ public class ScoreboardActivity extends ActionBarActivity implements
     private Typeface mTf;
     ValueFormatter intFormat;
     private int curSelectedBar;
+    private int curNumDrinks;
     public Map<String, String> sparkAddressMap;
 
     // Alarm vars
@@ -295,8 +296,9 @@ public class ScoreboardActivity extends ActionBarActivity implements
         PointF position = mChart.getPosition(e, YAxis.AxisDependency.LEFT);
 
         curSelectedBar = h.getXIndex();
+        curNumDrinks = (int) e.getVal();
 
-//        Log.d(TAG, mChart.getXValue(curSelectedBar));
+        Log.d(TAG, Integer.toString(curNumDrinks));
     }
 
     public void onNothingSelected() {
@@ -312,6 +314,19 @@ public class ScoreboardActivity extends ActionBarActivity implements
     public void onChartDoubleTapped(MotionEvent me) {
         final String selecteeName = mChart.getXValue(curSelectedBar);
         Log.d(TAG, "Chart DoubleTapped");
+
+        // Check superiority
+        int myNumDrinks = 0;
+        for (int i = 0; i < 3; i++) {
+            if (mChart.getXValue(i).equals(myName)) {
+                myNumDrinks = (int) mChart.getYValsAtIndex(i).get(0).dataSet.getYValForXIndex(i);
+            }
+        }
+
+        if (myNumDrinks - curNumDrinks < 2) {
+            Log.d(TAG, "Not enough superiority, cannot send drink.");
+            return;
+        }
 
         Firebase.setAndroidContext(this.getApplicationContext());
         Firebase myDrinkDb = new Firebase("https://wizardstaff.firebaseio.com/Sparks");
