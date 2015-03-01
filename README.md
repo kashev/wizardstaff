@@ -14,7 +14,9 @@
 
 But what if your liquid of choice doesn't come in cans?
 
-Enter [**wizard staff**](https://github.com/kashev/wizardstaff). **wizard staff** is a set of connected pint glasses, an Android app, and companion Pebble app. It allows for people to play Wizard Staff with any liquid that goes in a glass. Stay hydrated!
+Enter [**wizard staff**](https://github.com/kashev/wizardstaff). **wizard staff** is a set of connected pint glasses, an Android app, and companion Pebble app and web app for viewing the scoreboard. It allows for people to play Wizard Staff with any liquid that goes in a glass. Stay hydrated!
+
+Visit the live web scoreboard at [http://wizardstaff.me/](http://wizardstaff.me/) or [http://kashev.github.io/wizardstaff](http://kashev.github.io/wizardstaff)
 
 ## Sponsors
 **wizard staff** was built on the following technologies.
@@ -26,7 +28,13 @@ Enter [**wizard staff**](https://github.com/kashev/wizardstaff). **wizard staff*
 - [Android](https://www.android.com/) - application platform.
 - [Firebase](https://www.firebase.com/) - database platform.
 - [StrapKit](https://www.straphq.com/) - wearable software platform.
-- [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart) - Android bar graphs.
+- [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart) - Android plotting library.
+- [Node](http://nodejs.org/) - web development platform.
+- [Grunt](http://gruntjs.com/) - web development task runner.
+- [Pure CSS](http://purecss.io/) - CSS framework of choice.
+- [Sass](http://sass-lang.com/) - CSS preprocessor of choice.
+- [Flot](http://www.flotcharts.org/) - Javascript plotting library.
+
 
 ## Prizes
 **wizard staff** is aimed at the [following prizes](https://www.hackillinois.org/prizes):
@@ -34,6 +42,7 @@ Enter [**wizard staff**](https://github.com/kashev/wizardstaff). **wizard staff*
 - Goldman Sachs -- Most Unconventional Tech Choices
 - Google -- Best use of Google Tech
 - KCG & 3RED -- Best Networked Game
+- Palantir -- Best Data Visualization
 - Pebble -- Best Pebble Hack
 - Spark -- Best Spark Hack
 - Strap -- Best Use of Strap
@@ -44,7 +53,7 @@ Enter [**wizard staff**](https://github.com/kashev/wizardstaff). **wizard staff*
 Team Brady Rocks built WizardStaff in 36 hours.
 
 - **Dario Aranguiz** - Android App, DB Interaction
-- **Kashev Dalmia** - StrapKit App, A Whole Lot of Nothing
+- **Kashev Dalmia** - StrapKit App, A Whole Lot of Nothing, Web Scoreboard
 - **Brady Salz** - Hardware, Hardware, Hardware, Team, Embedded Software
 - **Ahmed Suhyl** - Embedded Software, Test, Hardware, Graphic Design
 
@@ -52,7 +61,7 @@ Thanks to Alex Kordas, Matt Tischer, and Arnold Kao for moral support. Thanks to
 
 ## TODO
 - [X] Microcontroller Code
-- [ ] Android App
-- [ ] TV Scoreboard App
+- [X] Android App
+- [X] TV Scoreboard App
 - [X] Pebble / Strap App
 - [X] Enclosure / Hardware
