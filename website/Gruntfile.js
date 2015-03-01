@@ -71,7 +71,10 @@ module.exports = function(grunt) {
           describe : true,
           expect : true,
           it : true,
-          module  : true
+          module  : true,
+          Firebase : true,
+          console : true,
+          $ : true
         }
       }
     },

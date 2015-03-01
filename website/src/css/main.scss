@@ -33,6 +33,16 @@ $background : #FFF;
 $text       : #111;
 
 /*
+ * https://color.adobe.com/Theme-27-color-theme-5523408/
+ */
+$accent-1 : #154D59;
+$accent-2 : #377D8C;
+$accent-3 : #94E1F2;
+$accent-4 : #62D9D9;
+$accent-5 : #3FBFB2;
+
+
+/*
  * SELECTION
  *  Because this is how you show you care.
  */
@@ -40,3 +50,33 @@ $selection-color      : $background;
 $selection-background : $text;
 ::selection      { color : $selection-color; background : $selection-background;}
 ::-moz-selection { color : $selection-color; background : $selection-background;}
+
+
+/*
+ * Disable Scrolling
+ */
+body, html {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.home-menu {
+    background: $accent-1;
+    text-transform: lowercase;
+    font-size: 2.5rem;
+
+}
+
+.pure-menu .pure-menu-heading {
+    color: $background;
+}
+
+#drink-plot {
+    width: 80%;
+    height: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+}
+
+.tickLabel { font-size: 150% }
