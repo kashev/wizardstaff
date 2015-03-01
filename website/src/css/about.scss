@@ -29,14 +29,6 @@ $selection-background : $text;
 ::-moz-selection { color : $selection-color; background : $selection-background;}
 
 
-/*
- * Disable Scrolling
- */
-body, html {
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
 .home-menu {
     background: $accent-1;
     text-transform: lowercase;
@@ -46,16 +38,6 @@ body, html {
 .pure-menu .pure-menu-heading {
     color: $background;
 }
-
-#drink-plot {
-    width: 80%;
-    height: 750px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 5rem;
-}
-
-.tickLabel { font-size: 150% }
 
 /*
  * Left Heading
@@ -123,4 +105,80 @@ footer {
   a:active {
     color: white;
   }
+}
+
+/*
+ * UTILITY CLASSES
+ */
+/*
+ * MIXINS
+ */
+$headshot-height : 11rem;
+$name-height : 2.3rem;
+#about-container {
+  width: 60%;
+  height: 750px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 6rem;
+  font-size: $name-height;
+  .name {
+    padding-top: ($headshot-height - $name-height) / 2;
+    padding-bottom: ($headshot-height - $name-height) / 2;
+  }
+  .left-name{
+    text-align: left;
+  }
+  .right-name{
+    text-align: right;
+  }
+}
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+       -o-border-radius: $radius;
+          border-radius: $radius;
+}
+.headshot-container{
+  height: $headshot-height;
+}
+.circle {
+  @include border-radius(50%);
+}
+.contained {
+  max-width  : 100%;
+  max-height : 100%;
+}
+.center {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pure-u-1-4 * {
+  margin: 0 auto;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
+/* unvisited link */
+a:link {
+  color: $accent-1;
+}
+
+/* visited link */
+a:visited {
+  color: gray;
+}
+
+/* mouse over link */
+a:hover {
+  color: $accent-3;
+}
+
+/* selected link */
+a:active {
+  color: gray;
 }

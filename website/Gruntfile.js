@@ -7,22 +7,25 @@
  */
 module.exports = function(grunt) {
   var html_files = {
-    'dist/index.html' : 'src/index.html'
+    'dist/index.html' : 'src/index.html',
+    'dist/about.html' : 'src/about.html'
   };
   var css_files  = {
-    'dist/css/main.css' : 'src/css/main.scss'
+    'dist/css/main.css' : 'src/css/main.scss',
+    'dist/css/about.css' : 'src/css/about.scss'
   };
   var js_files   = {
-    'dist/js/main.js' : 'src/js/main.js'
+    'dist/js/main.js' : 'src/js/main.js',
+    'dist/js/about.js' : 'src/js/about.js'
   };
 
-  // var img_copy =  {
-  //   flatten : true,
-  //   expand : true,
-  //   cwd: 'src/img',
-  //   src: ['**/*'],
-  //   dest: 'dist/img/'
-  // };
+  var img_copy =  {
+    flatten : true,
+    expand : true,
+    cwd: 'src/img',
+    src: ['**/*'],
+    dest: 'dist/img/'
+  };
 
   /*
    * GRUNT INITIALIZATION CONFIGURATION
@@ -111,12 +114,12 @@ module.exports = function(grunt) {
         files: [
           html_files,
           js_files,
-          // img_copy,
+          img_copy,
         ]
       },
       dist : {
         files: [
-          // img_copy,
+          img_copy,
         ]
       }
     },
@@ -164,7 +167,7 @@ module.exports = function(grunt) {
         livereload : true,
       },
       html : {
-        files : ['src/index.html'],
+        files : ['src/index.html', 'src/about.html'],
         tasks : ['copy:dev'],
       },
       js : {
@@ -172,7 +175,7 @@ module.exports = function(grunt) {
         tasks : ['jshint', 'copy:dev'],
       },
       css : {
-        files : ['src/css/main.scss'],
+        files : ['src/css/*.scss'],
         tasks : ['sass:dev'],
       },
       grunt : {
