@@ -29,6 +29,7 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.MutableData;
 import com.firebase.client.Transaction;
+import com.firebase.client.ValueEventListener;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -62,6 +63,8 @@ public class ScoreboardActivity extends ActionBarActivity implements
     protected BarChart mChart;
     private Typeface mTf;
     ValueFormatter intFormat;
+    private int curSelectedBar;
+    public Map<String, String> sparkAddressMap;
 
     // Alarm vars
     private AlarmManager alarmMgr;
@@ -76,6 +79,10 @@ public class ScoreboardActivity extends ActionBarActivity implements
         setContentView(R.layout.activity_scoreboard);
 
         dbInit(getIntent());
+        sparkAddressMap = new HashMap<String, String>();
+        sparkAddressMap.put("BlackMage", "53ff70065075535143191087");
+        sparkAddressMap.put("WhiteMage", "50ff6e065067545631270587");
+        sparkAddressMap.put("GreenMage", "48ff70065067555028111587");
 
         mChart = (BarChart) findViewById(R.id.chart1);
         mChart.setOnChartValueSelectedListener(this);
@@ -284,8 +291,9 @@ public class ScoreboardActivity extends ActionBarActivity implements
         RectF bounds = mChart.getBarBounds((BarEntry) e);
         PointF position = mChart.getPosition(e, YAxis.AxisDependency.LEFT);
 
-        Log.i("bounds", bounds.toString());
-        Log.i("position", position.toString());
+        curSelectedBar = h.getXIndex();
+
+//        Log.d(TAG, mChart.getXValue(curSelectedBar));
     }
 
     public void onNothingSelected() {
@@ -299,7 +307,32 @@ public class ScoreboardActivity extends ActionBarActivity implements
 
     /* Send DRINK command to Spark Core */
     public void onChartDoubleTapped(MotionEvent me) {
-        sendTakeDrinkRequest();
+        final String selecteeName = mChart.getXValue(curSelectedBar);
+        Log.d(TAG, "Chart DoubleTapped");
+
+        Firebase.setAndroidContext(this.getApplicationContext());
+        Firebase myDrinkDb = new Firebase("https://wizardstaff.firebaseio.com/Sparks");
+        myDrinkDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d(TAG, "Inside dataSnapshot Check");
+                for (DataSnapshot glass : dataSnapshot.getChildren()) {
+                    if (glass.child("Owner").getValue().toString().equals(selecteeName)) {
+                        String sparkName = glass.getKey().toString();
+                        Log.d(TAG, "Sparkname: " + sparkName);
+                        // TODO: Check if you are 2+ glasses above first
+                        String sparkAddress = sparkAddressMap.get(sparkName);
+                        Log.d(TAG, "Sending TakeDrinkRequest to " + sparkAddress);
+                        sendTakeDrinkRequest(sparkAddress);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                // Do nothing
+            }
+        });
     }
 
     public void onChartSingleTapped(MotionEvent me) {
@@ -312,10 +345,10 @@ public class ScoreboardActivity extends ActionBarActivity implements
     }
 
     /******* HELPER *******/
-    private void sendTakeDrinkRequest() {
+    private void sendTakeDrinkRequest(String sparkAddress) {
         // Instantiate the RequestQueue
         // http://stackoverflow.com/questions/16626032/volley-post-get-parameters
-        String sparkURL = "https://api.spark.io/v1/devices/53ff70065075535143191087/";
+        String sparkURL = "https://api.spark.io/v1/devices/" + sparkAddress;
         final String sparkToken = "dee3d4daa012763c0bfd854647224b5e0883996f";
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest sparkReq = new StringRequest(Request.Method.POST,

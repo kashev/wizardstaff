@@ -11,4 +11,7 @@
         <item>GreenMage</item>
     </string-array>
 
+    <string name="black_mage_url">53ff70065075535143191087</string>
+    <string name="white_mage_url">50ff6e065067545631270587</string>
+    <string name="green_mage_url">48ff70065067555028111587</string>
 </resources>
