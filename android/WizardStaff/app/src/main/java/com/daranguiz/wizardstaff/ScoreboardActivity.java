@@ -184,6 +184,7 @@ public class ScoreboardActivity extends ActionBarActivity implements
 
         mChart.getAxisLeft().setLabelCount(maxVal);
         mChart.setData(data);
+        mChart.invalidate(); //refresh
     }
 
     private void setDataFromJSON(String stringJSON) {
@@ -242,6 +243,7 @@ public class ScoreboardActivity extends ActionBarActivity implements
 
         mChart.getAxisLeft().setLabelCount(maxVal);
         mChart.setData(data);
+        mChart.invalidate(); //refresh
     }
 
     @Override
