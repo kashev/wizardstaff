@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="strapmetrics-mobile-">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/mobile/build/intermediates/exploded-aar/strapmetrics-mobile/res" />
+      <root url="jar://$PROJECT_DIR$/mobile/build/intermediates/exploded-aar/strapmetrics-mobile/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="strapkit-wear-">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/wear/build/intermediates/exploded-aar/strapkit-wear/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/wear/build/intermediates/exploded-aar/strapkit-wear/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

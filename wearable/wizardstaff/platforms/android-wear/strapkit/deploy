@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Utility to bail out of execution
+fail() {
+    echo "Error: $1"
+    exit 1
+}
+
+# Check adb available
+if ! which adb > /dev/null; then
+    fail "Missing adb. Please ensure android tools in path."
+fi
+
+# Check that multiple devices available
+devices=$(adb devices | grep -v "List" | grep -v '^$' | awk '{print $1}')
+
+if [ $(echo "$devices" | wc -l) -ne 2 ]; then
+    fail "Only one device detected. Please connect both wearable and handheld."
+fi
+
+echo
+echo "Installing onto wearable"
+
+handheld=
+wearable=
+for device in $devices; do
+    if [ -z "$wearable" ]; then
+        if [ $(adb -s "$device" install build/android-wear/wear-debug.apk | grep "Failure" | wc -l) -eq 0 ]; then
+            wearable="$device"
+        else
+            handheld="$device"
+        fi
+    else
+        handheld="$device"
+    fi
+done
+
+echo "handheld: $handheld"
+echo "wearable: $wearable"
+
+if [ -z "$wearable" ]; then
+    fail "Failed to install application onto wearable"
+fi
+
+echo "Done!"
+echo
+echo "Installing onto handheld"
+
+if [ $(adb -s "$handheld" install build/android-wear/mobile-debug.apk | grep "Failure" | wc -l) -eq 0 ]; then
+    echo "Done!"
+else
+    fail "Failed to install application onto handheld"
+fi
