@@ -126,6 +126,9 @@ public class ScoreboardActivity extends ActionBarActivity implements
         Context context = getApplicationContext();
         alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
+        intent.putExtra("myGlass", myGlass);
+//        Log.d(TAG, "Input to alarm: " + myGlass);
+        intent.putExtra("myAddr", sparkAddressMap.get(myGlass));
         alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
         alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 1000 * pollFrequencySeconds,
@@ -348,7 +351,7 @@ public class ScoreboardActivity extends ActionBarActivity implements
     private void sendTakeDrinkRequest(String sparkAddress) {
         // Instantiate the RequestQueue
         // http://stackoverflow.com/questions/16626032/volley-post-get-parameters
-        String sparkURL = "https://api.spark.io/v1/devices/" + sparkAddress;
+        String sparkURL = "https://api.spark.io/v1/devices/" + sparkAddress + "/";
         final String sparkToken = "dee3d4daa012763c0bfd854647224b5e0883996f";
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest sparkReq = new StringRequest(Request.Method.POST,

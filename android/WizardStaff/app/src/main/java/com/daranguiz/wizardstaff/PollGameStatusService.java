@@ -33,6 +33,8 @@ public class PollGameStatusService extends IntentService {
     static final public String DRINK_RESULT = "com.daranguiz.qizardstaff.PollGameStatusService.REQUEST_PROCESSED";
     private LocalBroadcastManager broadcaster;
     static final public String SCORE_KEY = "SCORES";
+    private String myGlass;
+    private String mySparkAddr;
 
     public PollGameStatusService() {
         super("PollSparkService");
@@ -44,6 +46,9 @@ public class PollGameStatusService extends IntentService {
          * https://developer.android.com/training/volley/simple.html */
 
 //        Log.d(TAG, "PollSparkService Started");
+        myGlass = intent.getStringExtra("myGlass");
+        Log.d(TAG, "myGlass in Service: " + myGlass);
+        mySparkAddr = intent.getStringExtra("myAddr");
 
         broadcaster = LocalBroadcastManager.getInstance(this);
 
@@ -88,7 +93,9 @@ public class PollGameStatusService extends IntentService {
     private void sendCheckFullRequest() {
         // Instantiate the RequestQueue
         // http://stackoverflow.com/questions/16626032/volley-post-get-parameters
-        String sparkURL = "https://api.spark.io/v1/devices/53ff70065075535143191087/";
+        String sparkURL = "https://api.spark.io/v1/devices/" + mySparkAddr + "/";
+        Log.d(TAG, "URL: " + sparkURL);
+        Log.d(TAG, "CheckingFullRequest for " + myGlass);
         final String sparkToken = "dee3d4daa012763c0bfd854647224b5e0883996f";
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest sparkReq = new StringRequest(Request.Method.POST,
