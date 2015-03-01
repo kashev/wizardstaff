@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">WizardStaff</string>
-    <string name="app_description">Welcome to your first StrapKit JS app! Open the app on your Android wear device to see how your awesome code turned out!\n\nTry sending a notification below.</string>
-    <string name="notification_text_hint">Send notification to wearable...</string>
-    <string name="notification_button_text">Send Notification</string>
-</resources>
