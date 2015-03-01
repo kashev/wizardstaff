@@ -128,10 +128,10 @@ public class PollGameStatusService extends IntentService {
 
                 Log.d(TAG, Integer.toString(sparkRetVal));
 
-                if (sparkRetVal == 1) {
+                if (sparkRetVal == 0) {
                     Log.d(TAG, "TryWrite");
                     Firebase myDrinkDb = new Firebase("https://wizardstaff.firebaseio.com/Sparks");
-                    Firebase curNumDrinks = myDrinkDb.child("BlackMage").child("NumDrinks");
+                    Firebase curNumDrinks = myDrinkDb.child(myGlass).child("NumDrinks");
                     curNumDrinks.runTransaction(new Transaction.Handler() {
                         @Override
                         public Transaction.Result doTransaction(MutableData currentData) {

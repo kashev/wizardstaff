@@ -156,7 +156,7 @@ public class ScoreboardActivity extends ActionBarActivity implements
         Log.d(TAG, myName + myGlass);
         curGlass.child("Owner").setValue(myName);
         curGlass.child("Owned").setValue(1);
-        curGlass.child("NumDrinks").setValue(0);
+        curGlass.child("NumDrinks").setValue(1);
     }
 
     @Override
