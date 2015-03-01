@@ -52,6 +52,7 @@ Visit the live web scoreboard at [http://wizardstaff.me/](http://wizardstaff.me/
 
 ## Thanks
 
+![Team](https://raw.githubusercontent.com/kashev/wizardstaff/master/other/team.jpg)
 Team Brady Rocks built WizardStaff in 36 hours.
 
 - **Dario Aranguiz** - Android App, DB Interaction
