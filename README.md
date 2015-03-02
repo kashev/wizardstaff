@@ -23,6 +23,7 @@ Visit the live web scoreboard at [http://wizardstaff.me/](http://wizardstaff.me/
 ## Sponsors
 **wizard staff** was built on the following technologies.
 ### Hardware
+![](//Optimized-staff.jpg)
 - [Spark Core](https://www.spark.io/) - embedded platform.
 - [Pebble](https://getpebble.com/) - wearable platform.
 
@@ -46,7 +47,7 @@ Visit the live web scoreboard at [http://wizardstaff.me/](http://wizardstaff.me/
 - KCG & 3RED -- Best Networked Game
 - Palantir -- Best Data Visualization
 - Pebble -- Best Pebble Hack
-- Spark -- Best Spark Hack
+- **Spark -- Best Spark Hack - WON!**
 - Strap -- Best Use of Strap
 - Trunk Club -- Most Innovative Way To Connect Someone
 
