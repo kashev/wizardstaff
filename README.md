@@ -23,7 +23,7 @@ Visit the live web scoreboard at [http://wizardstaff.me/](http://wizardstaff.me/
 ## Sponsors
 **wizard staff** was built on the following technologies.
 ### Hardware
-![](//Optimized-staff.jpg)
+![](/Optimized-staff.jpg)
 - [Spark Core](https://www.spark.io/) - embedded platform.
 - [Pebble](https://getpebble.com/) - wearable platform.
 
