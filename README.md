@@ -18,7 +18,9 @@ But what if your liquid of choice doesn't come in cans?
 
 Enter [**wizard staff**](https://github.com/kashev/wizardstaff). **wizard staff** is a set of connected pint glasses, an Android app, and companion Pebble app and web app for viewing the scoreboard. It allows for people to play Wizard Staff with any liquid that goes in a glass. Stay hydrated!
 
-Visit the live web scoreboard at [http://wizardstaff.me/](http://wizardstaff.me/) or [http://kashev.github.io/wizardstaff](http://kashev.github.io/wizardstaff)
+Visit the live web scoreboard at [http://wizardstaff.me/](http://wizardstaff.me/) or [http://kashev.github.io/wizardstaff](http://kashev.github.io/wizardstaff).
+
+See a demo video on [YouTube](https://www.youtube.com/watch?v=F5u2La0HgCA).
 
 ## Sponsors
 **wizard staff** was built on the following technologies.
@@ -50,6 +52,10 @@ Visit the live web scoreboard at [http://wizardstaff.me/](http://wizardstaff.me/
 - **Spark -- Best Spark Hack - WON!**
 - Strap -- Best Use of Strap
 - Trunk Club -- Most Innovative Way To Connect Someone
+
+## Press
+- Winner of the Best Use of Spark Hack at [Hackillinois 2015](http://hackillinois2015s.challengepost.com/submissions/33938-wizard-staff).
+- Featured on (Hackaday)[http://hackaday.com/2015/03/02/the-wisest-wizard-doesnt-drink-from-cans/].
 
 ## Thanks
 
