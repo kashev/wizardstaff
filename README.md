@@ -61,6 +61,8 @@ Team Brady Rocks built WizardStaff in 36 hours.
 - **Brady Salz** - Hardware, Hardware, Hardware, Team, Embedded Software
 - **Ahmed Suhyl** - Embedded Software, Test, Hardware, Graphic Design
 
+Thanks to Brandon Seieser, for coming up with the idea, and letting us run with it.
+
 Thanks to Alex Kordas, Matt Tischer, and Arnold Kao for moral support. Thanks to the entire [HackIllinois](https://www.hackillinois.org/) staff for putting on this event, especially Matthew Dierker. #funinanelevator
 
 ## TODO
