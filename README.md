@@ -23,7 +23,7 @@ Visit the live web scoreboard at [http://wizardstaff.me/](http://wizardstaff.me/
 ## Sponsors
 **wizard staff** was built on the following technologies.
 ### Hardware
-![](/Optimized-staff.jpg)
+![The glasses themselves.](/other/Optimized-staff.jpg)
 - [Spark Core](https://www.spark.io/) - embedded platform.
 - [Pebble](https://getpebble.com/) - wearable platform.
 
@@ -53,7 +53,7 @@ Visit the live web scoreboard at [http://wizardstaff.me/](http://wizardstaff.me/
 
 ## Thanks
 
-![Team](https://raw.githubusercontent.com/kashev/wizardstaff/master/other/team.jpg)
+![Team](/other/team.jpg)
 Team Brady Rocks built WizardStaff in 36 hours.
 
 - **Dario Aranguiz** - Android App, DB Interaction
@@ -61,7 +61,7 @@ Team Brady Rocks built WizardStaff in 36 hours.
 - **Brady Salz** - Hardware, Hardware, Hardware, Team, Embedded Software
 - **Ahmed Suhyl** - Embedded Software, Test, Hardware, Graphic Design
 
-Thanks to Brandon Seieser, for coming up with the idea, and letting us run with it.
+Thanks to Brandon Seiser, for coming up with the idea, and letting us run with it.
 
 Thanks to Alex Kordas, Matt Tischer, and Arnold Kao for moral support. Thanks to the entire [HackIllinois](https://www.hackillinois.org/) staff for putting on this event, especially Matthew Dierker. #funinanelevator
 
