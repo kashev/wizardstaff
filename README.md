@@ -55,7 +55,7 @@ See a demo video on [YouTube](https://www.youtube.com/watch?v=F5u2La0HgCA).
 
 ## Press
 - Winner of the Best Use of Spark Hack at [Hackillinois 2015](http://hackillinois2015s.challengepost.com/submissions/33938-wizard-staff).
-- Featured on (Hackaday)[http://hackaday.com/2015/03/02/the-wisest-wizard-doesnt-drink-from-cans/].
+- Featured on [Hackaday](http://hackaday.com/2015/03/02/the-wisest-wizard-doesnt-drink-from-cans/).
 
 ## Thanks
 
